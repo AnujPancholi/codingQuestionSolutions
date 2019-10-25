@@ -1,7 +1,6 @@
 /*
     leetcode
     category: "Algorithms"
-    difficulty: "easy"
     problem title: "Roman to Integer"
 */
 
