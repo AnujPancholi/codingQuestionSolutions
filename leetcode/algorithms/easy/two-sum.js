@@ -1,7 +1,6 @@
 /*
 	leetcode
 	category: "Algorithms"
-	difficulty: "Easy"
 	problem title: "Two Sum"
 */
 
