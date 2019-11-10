@@ -1,7 +1,7 @@
 /*
     leetcode
     category: "Algorithms"
-    problem title: "Remove Elements"
+    problem title: "Sqrt(x)"
 */
 
 /**
