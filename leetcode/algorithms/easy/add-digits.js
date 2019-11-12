@@ -10,10 +10,6 @@
  */
 var addDigits = function(num) {
     
-    if(num<10){
-        return num;
-    } else {
-        return addDigits(num.toString().split('').reduce((acc,curr) => acc+parseInt(curr),0));
-    }
+    return num<10 ? num : addDigits(num.toString().split('').reduce((acc,curr) => acc+parseInt(curr),0));
     
 };
