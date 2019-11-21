@@ -1,7 +1,7 @@
 /*
     leetcode
     category: "Algorithms"
-    problem title: "Two Sum"
+    problem title: "Happy Number"
 */
 
 /**
