@@ -1,7 +1,7 @@
 /*
     leetcode
     category: "Algorithms"
-    problem title: "Single Number"
+    problem title: "Find All Duplicates in an Array"
 */
 
 class Solution {
