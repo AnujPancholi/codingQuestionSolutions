@@ -1,7 +1,7 @@
 /*
     leetcode
     category: "Algorithms"
-    problem title: "Transpose Matrix"
+    problem title: "Rotate Image"
 */
 
 
