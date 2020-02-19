@@ -1,7 +1,7 @@
 /*
     leetcode
     category: "Algorithms"
-    problem title: "Climbing Stairs"
+    problem title: "Majority Elements"
 */
 
 /**
