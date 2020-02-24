@@ -152,6 +152,13 @@ function cookies(k, A) {
         let a = cookieHeap.extract();
         let b = cookieHeap.extract();
         cookieHeap.add(getNewCookieSweetness(a,b));
+Home
+Getting Started
+Developer Guide
+API Reference
+About
+￼ 
+
     }
     
     return cookieHeap.peek()>=k ? stepCount : -1;
