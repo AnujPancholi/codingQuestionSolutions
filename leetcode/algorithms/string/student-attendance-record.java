@@ -1,7 +1,7 @@
 /*
     leetcode
     category: "Algorithms"
-    problem title: "Reverse String II"
+    problem title: "Student Attendance Record"
 */
 
 
