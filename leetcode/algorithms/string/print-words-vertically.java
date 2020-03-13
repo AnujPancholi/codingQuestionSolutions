@@ -5,17 +5,6 @@
 */
 
 class Solution {
-    
-    private boolean areWordsExpired(List<Integer> indices,String word){
-        boolean answer = true;
-        for(Integer index : indices){
-            if(index.intValue()<word.length() && word.charAt(index.intValue())!=' '){
-                answer=false;
-                break;
-            }
-        }
-        return answer;
-    }
     public List<String> printVertically(String s) {
         List<StringBuilder> vertList = new ArrayList<StringBuilder>();
         
@@ -37,7 +26,7 @@ class Solution {
         }
         
         int vertListIndex=0;
-        while(!areWordsExpired(wordStartIndices,s)){
+        while(vertListIndex<longestWordLength){
             vertList.add(new StringBuilder(""));
             for(int i=0;i<wordStartIndices.size();++i){
                 int index = wordStartIndices.get(i);
