@@ -20,7 +20,7 @@ var reverseVowels = function(s) {
         }
     }
     vowels.reverse();
-    let newString='',v=0,c=0;
+    let newString="",v=0,c=0;
     for(let i=0;i<s.length;i++){
         if(vowelIndices[v]===i){
             newString+=vowels[v];
