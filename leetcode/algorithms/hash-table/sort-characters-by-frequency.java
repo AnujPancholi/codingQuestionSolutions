@@ -22,18 +22,16 @@ class Solution {
             public int compare(Object o1, Object o2) {
             return ((Comparable) ((Map.Entry) (o2)).getValue())
                     .compareTo(((Map.Entry) (o1)).getValue());          
-        }
+            }
         });
-            
-            for (Iterator it = entryList.iterator(); it.hasNext();) {
-                Map.Entry entry = (Map.Entry) it.next();
-                    char thisChar = (char)entry.getKey();
+        Iterator it = entryList.iterator();
+        while(it.hasNext()){
+            Map.Entry entry = (Map.Entry) it.next();
+            char thisChar = (char)entry.getKey();
             for(int i=0;i<(int)entry.getValue();++i){
                 sBuilder.append(thisChar);
-            }
-                
-            }
-        return sBuilder.toString();
-        
+            }        
+        }
+        return sBuilder.toString();        
     }
 }
