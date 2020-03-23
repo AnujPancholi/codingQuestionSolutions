@@ -24,6 +24,7 @@ class Solution {
         
         int leftover = candies-sumN(completeCycles*num_people);
         
+        //formulas calculated on paper and inserted into code
         for(int i=0;i<num_people;++i){
             cArr[i]=(int)((float)completeCycles*((float)i+1.0f+((float)((completeCycles-1)*num_people)/2)));
             int leftoverAmountForIndex = Math.min(num_people*(completeCycles)+i+1,leftover);
