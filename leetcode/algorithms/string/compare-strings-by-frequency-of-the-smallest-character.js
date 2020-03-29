@@ -39,7 +39,7 @@ var numSmallerByFrequency = function(queries, words) {
     return fQueries.reduce((resArr,q) => {
         resArr.push(fWords.reduce((n,w) => {
             if(w.smallestChar.freq>q.smallestChar.freq){
-                ++n;
+                n++;
             }
             return n;
         },0));
