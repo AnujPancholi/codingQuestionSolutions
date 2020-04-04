@@ -23,7 +23,7 @@ class Solution {
             p=head;
             q=p.next;
             
-            if(h1==null && h2==null){
+            if(h1==null){
                 h1=p;
                 h2=q;
             } else {
