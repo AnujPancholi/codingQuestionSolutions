@@ -61,16 +61,8 @@ class TwoWayIntegerMapping {
 
 
 class Solution {
-    private void printList(ListNode head){
-        ListNode p = head;
-        while(p!=null){
-            System.out.print(Integer.toString(p.val)+"->");
-        }
-        System.out.print('\n');
-    }
     public ListNode removeZeroSumSublists(ListNode head) {
-        int requiredStart=0;
-            requiredStart=-2;
+        int requiredStart=-2;
             TwoWayIntegerMapping sumToIndexMap = new TwoWayIntegerMapping();
             sumToIndexMap.addKeyValuePair(0,-1);
             ListNode walker = head;
