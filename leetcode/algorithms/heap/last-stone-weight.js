@@ -103,7 +103,7 @@ MaxHeap.prototype.extract = function(){
         this._heap[0] = this._heap.splice(this._heap.length-1,1)[0];
         this.heapifyDown();
     } else {
-        this._heap.length=0;
+        this._heap.shift();
     }
     return extractedValue;
 }
