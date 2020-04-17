@@ -22,47 +22,43 @@ function readLine() {
     return inputString[currentLine++];
 }
 
+//<myCode>------------------------------------------
 
-// <myCode>---------------------------------------------------
 const MinHeap = function(){
     this._heap = [];
 }
 
-MinHeap.prototype.printState = function(){
-    console.table(this._heap.map((value,index) => ({
-        index: index,
-        value: value
-    })));
+MinHeap.prototype.swapValues = function(i1,i2){
+    const temp = this._heap[i1];
+    this._heap[i1] = this._heap[i2];
+    this._heap[i2] = temp;
 }
 
-MinHeap.prototype.peek = function(){
-    return this._heap.length>0 ? this._heap[0] : null;
+MinHeap.prototype.printHeapArray = function(){
+    console.log(this._heap);
 }
 
 MinHeap.prototype.getParentIndex = function(index){
     return parseInt((index-1)/2);
 }
 
-MinHeap.prototype.getLeftChildIndex = function(index){
-    return parseInt((index*2)+1);
-}
-
 MinHeap.prototype.getRightChildIndex = function(index){
-    return parseInt((index*2)+2);
+    const rightChildIndex = parseInt((index*2)+2);
+    return rightChildIndex<this._heap.length ? rightChildIndex : null;
 }
 
-MinHeap.prototype.swapValues = function(i1,i2){
-    let temp = this._heap[i1];
-    this._heap[i1] = this._heap[i2];
-    this._heap[i2]=temp;
+MinHeap.prototype.getLeftChildIndex = function(index){
+    const leftChildIndex = parseInt((index*2)+1);
+    return leftChildIndex<this._heap.length ? leftChildIndex : null;
 }
+
 
 MinHeap.prototype.heapifyUp = function(){
-    let currentIndex = this._heap.length-1;
+    let currentIndex = this._heap.length - 1;
     while(currentIndex>0){
-        let parentIndex = this.getParentIndex(currentIndex);
+        const parentIndex = this.getParentIndex(currentIndex);
         if(this._heap[parentIndex]>this._heap[currentIndex]){
-            this.swapValues(currentIndex, parentIndex);
+            this.swapValues(parentIndex,currentIndex);
             currentIndex = parentIndex;
         } else {
             break;
@@ -70,29 +66,21 @@ MinHeap.prototype.heapifyUp = function(){
     }
 }
 
-MinHeap.prototype.heapifyDown = function(index=0){
-    let currentIndex = index;
-    while(true){
-        let swappingIndex = null;
-        let leftChildIndex = this.getLeftChildIndex(currentIndex);
-        let leftChild = this._heap[leftChildIndex];
-        if(leftChild){
-            let rightChildIndex = this.getRightChildIndex(currentIndex);
-            let rightChild = this._heap[rightChildIndex];
-            if(rightChild){
-                swappingIndex = leftChild<rightChild ? leftChildIndex : rightChildIndex;
+MinHeap.prototype.heapifyDown = function(){
+    let currentIndex = 0;
+    while(currentIndex<this._heap.length){
+        const leftChildIndex = this.getLeftChildIndex(currentIndex);
+        if(leftChildIndex){
+            const rightChildIndex = this.getRightChildIndex(currentIndex);
+            let candidateIndex = rightChildIndex && this._heap[rightChildIndex]<this._heap[leftChildIndex] ? rightChildIndex : leftChildIndex;
+            if(this._heap[candidateIndex]<this._heap[currentIndex]){
+                this.swapValues(candidateIndex,currentIndex);
+                currentIndex = candidateIndex;
             } else {
-                swappingIndex = leftChildIndex;
+                break;
             }
-            if(this._heap[currentIndex]<this._heap[swappingIndex]){
-                swappingIndex=null;
-            }
-        }
-        if(swappingIndex===null){
+        } else {
             break;
-        } else{
-            this.swapValues(currentIndex,swappingIndex);
-            currentIndex=swappingIndex;
         }
     }
 }
@@ -100,31 +88,20 @@ MinHeap.prototype.heapifyDown = function(index=0){
 MinHeap.prototype.add = function(value){
     this._heap.push(value);
     this.heapifyUp();
-} 
+}
 
-MinHeap.prototype.extract = function(index=0){
-    if(this._heap.length===0){
-        return null;
+MinHeap.prototype.extract = function(){
+    const extractedValue = this._heap[0] || null;
+    const lastValue = this._heap.pop();
+    if(this._heap.length!=0){
+        this._heap[0] = lastValue;
+        this.heapifyDown();
     }
-    const extractedValue = this._heap[index];
-    if(index!=this._heap.length-1){
-        this._heap[index] = this._heap.splice(this._heap.length-1,1)[0];
-    } else {
-        this._heap.splice(this._heap.length-1,1);
-    }
-    this.heapifyDown(index);
     return extractedValue;
 }
 
-MinHeap.prototype.removeValue = function(value){
-    let index = this._heap.indexOf(value);
-    if(index>-1){
-        this.extract(index);
-    }
-}
-
-MinHeap.prototype.getHeapArray = function(){
-    return this._heap;
+MinHeap.prototype.peek = function(){
+    return this._heap[0];
 }
 
 MinHeap.prototype.getSize = function(){
@@ -152,18 +129,12 @@ function cookies(k, A) {
         let a = cookieHeap.extract();
         let b = cookieHeap.extract();
         cookieHeap.add(getNewCookieSweetness(a,b));
-Home
-Getting Started
-Developer Guide
-API Reference
-About
-￼ 
-
     }
-    
+    console.log(`${stepCount} ${cookieHeap.peek()}`);
     return cookieHeap.peek()>=k ? stepCount : -1;
 }
-// </myCode>------------------------------------------------------
+
+//</myCode>--------------------------------------------------------
 
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
