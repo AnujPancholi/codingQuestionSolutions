@@ -22,42 +22,43 @@ function readLine() {
     return inputString[currentLine++];
 }
 
-//<myCode>------------------------------------------
+//<myCode>------------------------------------------------
 
-const MinHeap = function(){
+const Heap = function(compare){
     this._heap = [];
+    this._compare = compare;
 }
 
-MinHeap.prototype.swapValues = function(i1,i2){
+Heap.prototype.swapValues = function(i1,i2){
     const temp = this._heap[i1];
     this._heap[i1] = this._heap[i2];
     this._heap[i2] = temp;
 }
 
-MinHeap.prototype.printHeapArray = function(){
+Heap.prototype.printHeapArray = function(){
     console.log(this._heap);
 }
 
-MinHeap.prototype.getParentIndex = function(index){
+Heap.prototype.getParentIndex = function(index){
     return parseInt((index-1)/2);
 }
 
-MinHeap.prototype.getRightChildIndex = function(index){
+Heap.prototype.getRightChildIndex = function(index){
     const rightChildIndex = parseInt((index*2)+2);
     return rightChildIndex<this._heap.length ? rightChildIndex : null;
 }
 
-MinHeap.prototype.getLeftChildIndex = function(index){
+Heap.prototype.getLeftChildIndex = function(index){
     const leftChildIndex = parseInt((index*2)+1);
     return leftChildIndex<this._heap.length ? leftChildIndex : null;
 }
 
 
-MinHeap.prototype.heapifyUp = function(){
+Heap.prototype.heapifyUp = function(){
     let currentIndex = this._heap.length - 1;
     while(currentIndex>0){
         const parentIndex = this.getParentIndex(currentIndex);
-        if(this._heap[parentIndex]>this._heap[currentIndex]){
+        if(this._compare(this._heap[currentIndex],this._heap[parentIndex])>0){
             this.swapValues(parentIndex,currentIndex);
             currentIndex = parentIndex;
         } else {
@@ -66,14 +67,14 @@ MinHeap.prototype.heapifyUp = function(){
     }
 }
 
-MinHeap.prototype.heapifyDown = function(){
+Heap.prototype.heapifyDown = function(){
     let currentIndex = 0;
     while(currentIndex<this._heap.length){
         const leftChildIndex = this.getLeftChildIndex(currentIndex);
         if(leftChildIndex){
             const rightChildIndex = this.getRightChildIndex(currentIndex);
-            let candidateIndex = rightChildIndex && this._heap[rightChildIndex]<this._heap[leftChildIndex] ? rightChildIndex : leftChildIndex;
-            if(this._heap[candidateIndex]<this._heap[currentIndex]){
+            let candidateIndex = rightChildIndex && this._compare(this._heap[rightChildIndex],this._heap[leftChildIndex])>0 ? rightChildIndex : leftChildIndex;
+            if(this._compare(this._heap[candidateIndex],this._heap[currentIndex])>0){
                 this.swapValues(candidateIndex,currentIndex);
                 currentIndex = candidateIndex;
             } else {
@@ -85,12 +86,20 @@ MinHeap.prototype.heapifyDown = function(){
     }
 }
 
-MinHeap.prototype.add = function(value){
+Heap.prototype.getSize = function(){
+    return this._heap.length;
+}
+
+Heap.prototype.peek = function(){
+    return this._heap[0];
+}
+
+Heap.prototype.add = function(value){
     this._heap.push(value);
     this.heapifyUp();
 }
 
-MinHeap.prototype.extract = function(){
+Heap.prototype.extract = function(){
     const extractedValue = this._heap[0] || null;
     const lastValue = this._heap.pop();
     if(this._heap.length!=0){
@@ -99,15 +108,6 @@ MinHeap.prototype.extract = function(){
     }
     return extractedValue;
 }
-
-MinHeap.prototype.peek = function(){
-    return this._heap[0];
-}
-
-MinHeap.prototype.getSize = function(){
-    return this._heap.length;
-}
-
 const getNewCookieSweetness = (s1,s2) => parseInt(Math.min(s1,s2) + (2*Math.max(s1,s2)));
 
 /*
@@ -118,7 +118,7 @@ function cookies(k, A) {
      * Write your code here.
      */
     let stepCount = 0;
-    const cookieHeap = new MinHeap();
+    const cookieHeap = new Heap((i,j) => (j-i));
 
     for(let i=0;i<A.length;++i){
         cookieHeap.add(A[i]);
@@ -134,7 +134,8 @@ function cookies(k, A) {
     return cookieHeap.peek()>=k ? stepCount : -1;
 }
 
-//</myCode>--------------------------------------------------------
+//</myCode>------------------------------------------
+
 
 function main() {
     const ws = fs.createWriteStream(process.env.OUTPUT_PATH);
