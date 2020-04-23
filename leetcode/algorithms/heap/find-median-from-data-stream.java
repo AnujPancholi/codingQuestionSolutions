@@ -4,9 +4,10 @@
     problem title: "Top K Frequent Elements"
 */
 
+    ''
+
 class MedianFinder {
     
-    ArrayList<Integer> list = null;
     PriorityQueue<Integer> lowerHeap = null;
     PriorityQueue<Integer> upperHeap = null;
     
@@ -21,7 +22,7 @@ class MedianFinder {
     
     /** initialize your data structure here. */
     public MedianFinder() {
-        list = new ArrayList<Integer>();
+        
         lowerHeap = new PriorityQueue<Integer>(new Comparator<Integer>(){
             public int compare(Integer i1, Integer i2){
                 return i2-i1;
