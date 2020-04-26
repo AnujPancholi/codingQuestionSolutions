@@ -14,7 +14,7 @@
  * }
  */
 class Solution {
-    private void populateHeapFromTree(TreeNode node,int k,PriorityQueue<Integer> heap){
+    private void populateHeapWithTree(TreeNode node, int k,PriorityQueue<Integer> heap){
         if(node==null){
             return;
         }
@@ -22,20 +22,26 @@ class Solution {
         if(heap.size()>k){
             heap.poll();
         }
-        populateHeapFromTree(node.left,k,heap);
-        populateHeapFromTree(node.right,k,heap);
+        populateHeapWithTree(node.left,k,heap);
+        populateHeapWithTree(node.right,k,heap);
     }
     public int kthSmallest(TreeNode root, int k) {
         PriorityQueue<Integer> maxHeap = new PriorityQueue<Integer>(new Comparator(){
             public int compare(Object i1, Object i2){
-                return ((Integer)i2)-((Integer)i1);
+                return (Integer)(i2) - (Integer)(i1);
             }
         });
         
-        populateHeapFromTree(root,k,maxHeap);
-        
+        Integer kthSmallest = null;
+        populateHeapWithTree(root.left,k,maxHeap);
+        if(maxHeap.size()<k){
+            maxHeap.add(root.val);
+            if(maxHeap.size()>k){
+                maxHeap.poll();
+            }
+            populateHeapWithTree(root.right,k,maxHeap);
+        }
         return maxHeap.peek();
-        
         
     }
 }
