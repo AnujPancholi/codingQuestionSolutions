@@ -1,7 +1,7 @@
 /*
     leetcode
     category: "Algorithms"
-    problem title: "Kth Largest Element in an Array
+    problem title: "Kth Smallest Element in a Sorted Matrix"
 */
 
 class Solution {
