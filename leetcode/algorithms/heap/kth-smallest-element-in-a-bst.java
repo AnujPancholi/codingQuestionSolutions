@@ -32,7 +32,6 @@ class Solution {
             }
         });
         
-        Integer kthSmallest = null;
         populateHeapWithTree(root.left,k,maxHeap);
         if(maxHeap.size()<k){
             maxHeap.add(root.val);
