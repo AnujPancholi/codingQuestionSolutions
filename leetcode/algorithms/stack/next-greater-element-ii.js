@@ -44,26 +44,22 @@ module.exports = Stack;
 
 var nextGreaterElements = function(nums) {
     const indexStack = new Stack();
-    const indexToAnsMap = new Map();
+    const ansArr = [];
     
     nums.forEach((num,index) => {
-        indexToAnsMap.set(index,-1);
+        ansArr[index] = -1;
         while(indexStack.peek()!=null && nums[indexStack.peek()]<num){
-            indexToAnsMap.set(indexStack.pop(),num);
+            ansArr[indexStack.pop()] = num;
         }
         indexStack.push(index);
     })
     
     nums.forEach((num,index) => {
         while(indexStack.peek()!=null && nums[indexStack.peek()]<num){
-        indexToAnsMap.set(indexStack.pop(),num);
+            ansArr[indexStack.pop()] = num;
         }
     })
     
-    const ansArr = [];
-    for(let i=0;i<nums.length;++i){
-        ansArr[i] = indexToAnsMap.get(i);
-    }
     return ansArr;
     
 };
