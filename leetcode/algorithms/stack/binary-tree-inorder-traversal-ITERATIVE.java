@@ -31,18 +31,16 @@ class Solution {
         while(currNode!=null || !nodeStack.empty()){
             
             
-            nodeStack.push(currNode);
             visitedSet.add(currNode);
             
             if(currNode.left!=null && !visitedSet.contains(currNode.left)){
+                nodeStack.push(currNode);
                 currNode=currNode.left;
             } else if(currNode.right!=null && !visitedSet.contains(currNode.right)){
-                nodeStack.pop();
                 inorderList.add(currNode.val);
                 currNode = currNode.right;
             } else {
                 inorderList.add(currNode.val);
-                nodeStack.pop();
                 currNode = nodeStack.empty() ? null : nodeStack.pop();
             }
             
