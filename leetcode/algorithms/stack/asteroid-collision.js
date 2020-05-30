@@ -13,47 +13,47 @@
 const _private_stack_map = new WeakMap();
 
 const Stack = function(){
-	const _stackData = {
-		stack: []
-	}
-	_private_stack_map.set(this,_stackData);
-	
+    const _stackData = {
+        stack: []
+    }
+    _private_stack_map.set(this,_stackData);
+    
 }
 
 
 Stack.prototype.push = function(val){
-	let stackData = _private_stack_map.get(this);
-	stackData.stack.push(val);
+    let stackData = _private_stack_map.get(this);
+    stackData.stack.push(val);
 }
 
 Stack.prototype.pop = function(){
-	let stackData = _private_stack_map.get(this);
-	return stackData.stack.pop();
+    let stackData = _private_stack_map.get(this);
+    return stackData.stack.pop();
 }
 
 Stack.prototype.peek = function(){
-	let stackData = _private_stack_map.get(this);
-	return stackData.stack.length===0 ? null : stackData.stack[stackData.stack.length-1];
+    let stackData = _private_stack_map.get(this);
+    return stackData.stack.length===0 ? null : stackData.stack[stackData.stack.length-1];
 }
 
 Stack.prototype.getSize = function(){
-	let stackData = _private_stack_map.get(this);
-	return stackData.stack.length;
+    let stackData = _private_stack_map.get(this);
+    return stackData.stack.length;
 }
 
 
+const isCollisionImminent = (n1,n2) => {
+    return n2!=null && n1>0 && n2<0;
+}
+
 const getCollisionResult = (n1,n2) => {
-    if(n1>0 && n2<0){
+    let collisionResult = 0;
         if(Math.abs(n1)>Math.abs(n2)){
-            return n1;
+            collisionResult=n1;
         } else if(Math.abs(n1)<Math.abs(n2)) {
-            return n2;            
-        } else {
-            return 0;
+            collisionResult=n2;            
         }
-    } else {
-        return null;
-    }
+    return collisionResult;
 }
 
 var asteroidCollision = function(asteroids) {
@@ -62,29 +62,22 @@ var asteroidCollision = function(asteroids) {
         
     for(let i=0;i<asteroids.length;i++){
         let resultToPush = asteroids[i];
-        while(astStack.peek()!=null){
-            const collisionResult = getCollisionResult(astStack.peek(),resultToPush);
-            if(collisionResult===null){
-                break;
-            }
-            astStack.pop();
-            if(collisionResult!=0){
-                resultToPush = collisionResult;
-            } else {
-                resultToPush=null;
-                break;
-            }
+        while(astStack.peek()!=null && isCollisionImminent(astStack.peek(),resultToPush)){
+            const collisionResult = getCollisionResult(astStack.pop(),resultToPush);
+            resultToPush = collisionResult!=0 ? collisionResult : null;
         }
-        if(resultToPush){
+        if(resultToPush!=null){
             astStack.push(resultToPush);
         }
     }
     
-    const arr = [];
+    const arr = Array.from({length: astStack.getSize()});
+    let i=arr.length-1;
     while(astStack.peek()){
-        arr.push(astStack.pop());
+        arr[i] = astStack.pop();
+        --i;
     }
     
-    return arr.reverse();
+    return arr;
     
 };
