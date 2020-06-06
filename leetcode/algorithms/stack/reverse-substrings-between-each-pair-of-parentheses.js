@@ -43,7 +43,6 @@ Stack.prototype.getSize = function(){
 var reverseParentheses = function(s) {
     const charStack = new Stack();
     const charBuff = [];
-    let strArr = [];
     
     for(let i=0;i<s.length;++i){
         if(s.charAt(i)===')'){
@@ -59,11 +58,14 @@ var reverseParentheses = function(s) {
         }
     }
     
+    const strArr = Array.from({length: charStack.getSize()});
+    let i=charStack.getSize();
     while(charStack.peek()){
-        strArr.push(charStack.pop());
+        strArr[i] = charStack.pop();
+        --i;
     }
     
-    return strArr.reverse().join('');
+    return strArr.join('');
     
     
 };
