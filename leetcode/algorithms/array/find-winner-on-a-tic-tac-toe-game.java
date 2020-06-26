@@ -10,21 +10,32 @@ class Solution {
     private int BOARD_SIZE=3;
     
     private HashMap<Character,Integer>[] getInitPlayerCounter(){
-        return new HashMap[]{
-            new HashMap<Character,Integer>(){{put('A',0);put('B',0);}},
-            new HashMap<Character,Integer>(){{put('A',0);put('B',0);}},
-            new HashMap<Character,Integer>(){{put('A',0);put('B',0);}}
-        };
+        HashMap[] initMaps = new HashMap[BOARD_SIZE];
+        
+        for(int i=0;i<BOARD_SIZE;++i){
+            initMaps[i] = new HashMap<Character,Integer>();
+            for(char PLAYER : PLAYERS){
+                initMaps[i].put(PLAYER,0);
+            }
+        }
+        return initMaps;
+        
     }
     
     private HashMap<Character,Integer>[] getInitDiagonalCounter(){
-        return new HashMap[]{
-            new HashMap<Character,Integer>(){{put('A',0);put('B',0);}},
-            new HashMap<Character,Integer>(){{put('A',0);put('B',0);}}
-            
+        HashMap[] diagCounts = new HashMap[]{
+            new HashMap<Character,Integer>(),
+            new HashMap<Character,Integer>()
         };
+        for(char PLAYER : PLAYERS){
+            for(HashMap<Character,Integer> currMap : diagCounts){
+                currMap.put(PLAYER,0);
+            }
+        }
+        return diagCounts;
     }
     
+    //for debugging only, not part of solution
     private void printArr(HashMap<Character,Integer>[] arr){
         for(HashMap<Character,Integer> currMap : arr){
             System.out.println(currMap);
