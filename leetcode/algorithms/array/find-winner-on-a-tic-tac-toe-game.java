@@ -110,7 +110,7 @@ class Solution {
         
         
         
-        return ansString.length()>1 && moves.length==9 ? "Draw" : ansString;
+        return ansString.equals("Pending") && moves.length==9 ? "Draw" : ansString;
         
         
         
