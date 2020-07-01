@@ -7,16 +7,16 @@
 class TopVotedCandidate {
     private List<ArrayList<Integer>> leadChangeList = null;
     
-    private ArrayList<Integer> getClosestLeadEntryForTime(int time){
+    private Integer getClosestLeadEntryForTime(int time){
         int low=0,high=leadChangeList.size()-1;
-        ArrayList<Integer> closestEntry = null;
+        Integer closestEntry = null;
         while(high-low>1){
             // System.out.println(Integer.toString(low)+" "+Integer.toString(high));
             int mid = (high+low)/2;
             int midValue = leadChangeList.get(mid).get(0);
             
             if(midValue==time){
-                closestEntry = leadChangeList.get(mid);
+                closestEntry = leadChangeList.get(mid).get(1);
                 break;
             } else if(midValue<=time){
                 low = mid;
@@ -26,7 +26,7 @@ class TopVotedCandidate {
             
         }
         if(closestEntry==null){
-            closestEntry = leadChangeList.get(high).get(0)<=time ? leadChangeList.get(high) : leadChangeList.get(low);
+            closestEntry = leadChangeList.get(high).get(0)<=time ? leadChangeList.get(high).get(1) : leadChangeList.get(low).get(1);
         }
         return closestEntry;
         
@@ -54,7 +54,7 @@ class TopVotedCandidate {
     }
     
     public int q(int t) {
-        return getClosestLeadEntryForTime(t).get(1);
+        return getClosestLeadEntryForTime(t);
     }
 }
 
