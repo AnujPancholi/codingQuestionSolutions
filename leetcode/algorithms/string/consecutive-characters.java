@@ -6,9 +6,9 @@
 
 class Solution {
     public int maxPower(String s) {
-        int powerCandidate = 0,power=0;
-        Character powerChar = null;
-        for(int i=0;i<s.length();i++){
+        int powerCandidate = 1,power=1;
+        Character powerChar = s.charAt(0);
+        for(int i=1;i<s.length();i++){
             if(powerChar==null || s.charAt(i)!=powerChar){
                 powerChar = s.charAt(i);
                 powerCandidate=1;
