@@ -21,12 +21,28 @@
  * }
  */
 
-class levelStats {
-    double sum;
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+
+class LevelStats {
+    double avg;
     int count;
     
-    public levelStats(){
-        sum=0;
+    public LevelStats(){
+        avg=0;
         count=0;
     }
 }
@@ -40,15 +56,15 @@ class Solution {
         return 1+Math.max(getTreeHeight(root.left),getTreeHeight(root.right));
     }
     
-    private void populateStats(TreeNode node,int level,ArrayList<levelStats> stats){
+    private void populateStats(TreeNode node,int level,ArrayList<LevelStats> stats){
         if(node==null){
             return;
         }
-        levelStats currLevelStat = stats.get(level);
+        LevelStats currLevelStat = stats.get(level);
         
         // System.out.println(Integer.toString(node.val)+" "+Integer.toString(level)+" "+Double.toString(currLevelStat.sum)+" "+Integer.toString(currLevelStat.count));
         
-        currLevelStat.sum = ((currLevelStat.sum*currLevelStat.count)+node.val)/(currLevelStat.count+1);
+        currLevelStat.avg = ((currLevelStat.avg*currLevelStat.count)+node.val)/(currLevelStat.count+1);
         ++currLevelStat.count;
         
         populateStats(node.left,level+1,stats);
@@ -61,10 +77,10 @@ class Solution {
         
         // System.out.println(treeHeight);
         
-        ArrayList<levelStats> stats = new ArrayList<levelStats>();
+        ArrayList<LevelStats> stats = new ArrayList<LevelStats>();
         
         for(int i=0;i<treeHeight;++i){
-            stats.add(new levelStats());
+            stats.add(new LevelStats());
         }
         
         populateStats(root,0,stats);
@@ -75,8 +91,8 @@ class Solution {
         
         ArrayList<Double> avgList = new ArrayList<Double>();
         
-        for(levelStats stat : stats){
-            avgList.add((double)(stat.sum));
+        for(LevelStats stat : stats){
+            avgList.add((double)(stat.avg));
         }
         
         return avgList;
