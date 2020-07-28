@@ -11,8 +11,7 @@
  */
 var angleClock = function(hour, minutes) {
     
-    const hourAbsoluteAngle = (hour%12)*30 + (minutes/60)*30;
-    const minuteAbsoluteAngle = (minutes*6);
+    const angleBetweenHands = Math.abs((hour%12)*30 + (minutes/60)*30-minutes*6);
     
     const angleBetweenHands = Math.abs(hourAbsoluteAngle-minuteAbsoluteAngle);
     return angleBetweenHands>180 ? 360-angleBetweenHands : angleBetweenHands;
