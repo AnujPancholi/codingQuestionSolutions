@@ -10,7 +10,7 @@
  */
 var NumArray = function(nums) {
     
-    this.sums = nums.reduce((arr,num,index) => arr.concat(num+arr[index]),[0]);
+    this.cumulativeSums = nums.reduce((arr,num,index) => arr.concat(num+arr[index]),[0]);
     
 };
 
@@ -20,7 +20,7 @@ var NumArray = function(nums) {
  * @return {number}
  */
 NumArray.prototype.sumRange = function(i, j) {
-    return this.sums[j+1]-this.sums[i];
+    return this.cumulativeSums[j+1]-this.cumulativeSums[i];
 };
 
 /** 
