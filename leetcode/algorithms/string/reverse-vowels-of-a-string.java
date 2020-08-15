@@ -4,7 +4,6 @@
     problem title: "Reverse Vowels of a String"
 */
 
-
 class Solution {
     
     private HashSet<Character> VOWELS = new HashSet<Character>(){{
@@ -24,31 +23,34 @@ class Solution {
         return VOWELS.contains(c);
     }
     
+    
+    
     public String reverseVowels(String s) {
         
-        ArrayList<Integer> vowelIndices = new ArrayList<Integer>();
+        int low=0,high=s.length()-1;
         
-        for(int i=0;i<s.length();++i){
-            if(isVowel(s.charAt(i))){
-                vowelIndices.add(i);
+        StringBuilder revBuilder = new StringBuilder(s);
+        
+        while(high>low){
+            boolean isLowVowel = isVowel(s.charAt(low)), isHighVowel = isVowel(s.charAt(high)); 
+            if(!isLowVowel){
+                ++low;
+            }
+            if(!isHighVowel){
+                --high;
+            }
+            
+            if(isLowVowel && isHighVowel){
+                char temp = s.charAt(low);
+                revBuilder.setCharAt(low,s.charAt(high));
+                revBuilder.setCharAt(high,temp);
+                ++low;
+                --high;
             }
         }
         
-        // System.out.println(vowelIndices);
+        return revBuilder.toString();
         
-        int low=0,high=vowelIndices.size()-1;
-        StringBuilder reverseVowelBuilder = new StringBuilder(s);
-        while(high-low>0){
-            int highIndex = vowelIndices.get(high);
-            int lowIndex = vowelIndices.get(low);
-            char tempChar = reverseVowelBuilder.charAt(lowIndex);
-            reverseVowelBuilder.setCharAt(lowIndex,reverseVowelBuilder.charAt(highIndex));
-            reverseVowelBuilder.setCharAt(highIndex,tempChar);
-            ++low;
-            --high;
-        }
-        
-        return reverseVowelBuilder.toString();
         
     }
 }
