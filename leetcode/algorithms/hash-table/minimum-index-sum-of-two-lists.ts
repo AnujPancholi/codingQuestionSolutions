@@ -51,7 +51,7 @@ function findRestaurant(list1: string[], list2: string[]): string[] {
         ++i;
     }
     
-    console.log(nameEntries);
+    // console.log(nameEntries);
     
     
     return commonNames;
