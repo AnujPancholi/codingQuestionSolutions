@@ -16,15 +16,6 @@ function threeSum(nums: number[]): number[][] {
         let l: number = i+1,h: number = nums.length-1;
         
         while(h-l>0){
-            if(h===i){
-                h--;
-                continue;
-            }
-            
-            if(l===i){
-                l++;
-                continue;
-            }
             
             const intSum: number = nums[h]+nums[l];
             
