@@ -4,6 +4,7 @@
     problem title: "Majority Element"
 */
 
+//using boyer-moore voting
 function majorityElement(nums: number[]): number {
     
     let candidate: number = nums[0], i: number = 1,voteCount: number = 0;
