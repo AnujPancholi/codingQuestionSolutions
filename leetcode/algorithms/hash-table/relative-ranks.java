@@ -23,7 +23,9 @@ class Solution {
                 scoreList.add(i);
             }
         }
-        
+
+
+        //sorted via static function
         Arrays.sort(sortedIntegersArray,Collections.reverseOrder());
         for(int i=0;i<sortedIntegersArray.length;++i){
             sortedScores[i] = sortedIntegersArray[i].intValue();
