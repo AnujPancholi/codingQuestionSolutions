@@ -1,3 +1,9 @@
+/*
+    codesignal
+    category: "interview-practice/Arrays"
+    problem title: "rotateImage"
+*/
+
 function transpose(a: number[][]): number[][]{
     let diag: number = 0,n: number = a.length;
     while(diag<n){
