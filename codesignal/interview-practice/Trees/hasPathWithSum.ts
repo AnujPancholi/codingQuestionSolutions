@@ -1,6 +1,6 @@
 /*
     codesignal
-    category: "interview-practice/Arrays"
+    category: "interview-practice/Trees"
     problem title: "hasPathWithSum"
 */
 
