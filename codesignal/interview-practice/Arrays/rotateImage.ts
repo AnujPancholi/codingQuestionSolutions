@@ -25,7 +25,6 @@ function rotateImage(a: number[][]): number[][] {
                    
         }
         // console.log(a);
-        // break;
         ++s
     }
     
