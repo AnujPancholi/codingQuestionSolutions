@@ -16,28 +16,13 @@ function insertIntoBST(root: TreeNode | null, val: number): TreeNode | null {
     
     if(root===null){
         const freshNode = new TreeNode(val);
-        root = freshNode;
+        return freshNode;
+    }
+    
+    if(val<root.val){
+        root.left = insertIntoBST(root.left,val);
     } else {
-        let walker: TreeNode = root;
-        while(root!==null){
-            if(val<walker.val){
-                if(walker.left===null){
-                    const freshNode = new TreeNode(val);
-                    walker.left = freshNode;
-                    break;
-                } else {
-                    walker = walker.left;
-                }
-            } else {
-                if(walker.right===null){
-                    const freshNode = new TreeNode(val);
-                    walker.right = freshNode;
-                    break;
-                } else {
-                    walker = walker.right;
-                }
-            }
-        }
+        root.right = insertIntoBST(root.right,val);
     }
     
     return root;
