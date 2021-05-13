@@ -20,12 +20,10 @@ function isValidBstSubtree(root: TreeNode | null): [boolean,number,number] {
     const leftBSTResult = isValidBstSubtree(root.left);
     const rightBSTResult = isValidBstSubtree(root.right);
     
-    const validity = leftBSTResult[0] && rightBSTResult[0] && (root.left===null || root.left.val<root.val) && (root.right===null || root.right.val>root.val);
+    const validity = leftBSTResult[0] && rightBSTResult[0];
     
-    const minNodeVal = Math.min(rightBSTResult[1],leftBSTResult[1],root.val)
-    const maxNodeVal = Math.max(rightBSTResult[2],leftBSTResult[2],root.val)
     
-    return [validity && leftBSTResult[2]<root.val && rightBSTResult[1]>root.val,minNodeVal,maxNodeVal]
+    return [validity && leftBSTResult[2]<root.val && rightBSTResult[1]>root.val,Math.min(rightBSTResult[1],leftBSTResult[1],root.val),Math.max(rightBSTResult[2],leftBSTResult[2],root.val)]
 }
 
 function isValidBST(root: TreeNode | null): boolean {
