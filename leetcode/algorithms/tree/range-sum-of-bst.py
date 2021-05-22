@@ -15,12 +15,11 @@ class Solution(object):
         if root==None:
             return 0;
         sum = 0;
-        
-        if root.val<high:
-            sum=sum+self.rangeSumBST(root.right,low,high);
+        if(root.val<high):
+            sum=sum+self.rangeSumBST(root.right,max(low,root.val),high);
         
         if root.val>low:
-            sum=sum+self.rangeSumBST(root.left,low,high);
+            sum=sum+self.rangeSumBST(root.left,low,min(high,root.val));
         
         if(root.val<=high and root.val>=low):
             sum=sum+root.val
