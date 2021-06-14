@@ -11,10 +11,21 @@ class UndergroundSystem {
 
 laneMap: Map<string,AvgObj>
 custMap: Map<number,CheckinEvent>
-
+    
 constructor() {
     this.laneMap = new Map<string,AvgObj>();
     this.custMap = new Map<number,CheckinEvent>();
+}
+
+getRunningAvgObj(avgObj: AvgObj,value: number): AvgObj {
+    return {
+        avg: ((avgObj.avg*avgObj.count)+value)/(avgObj.count+1),
+        count: avgObj.count+1,
+    }
+}
+
+getLane(startStation: string, endStation: string): string {
+    return `${startStation}-${endStation}`;
 }
 
 checkIn(id: number, stationName: string, t: number): void {
@@ -26,23 +37,17 @@ checkIn(id: number, stationName: string, t: number): void {
 
 checkOut(id: number, stationName: string, t: number): void {
     const entryEvent = this.custMap.get(id);
-    const duration = t - entryEvent.time;
-    const lane = `${entryEvent.station}-${stationName}`;
+    const lane = this.getLane(entryEvent.station,stationName);
     const avgObj = this.laneMap.get(lane) || {
         avg: 0,
         count: 0
     };
-    
-    avgObj.avg=((avgObj.avg*avgObj.count)+duration)/(avgObj.count+1);
-    avgObj.count++;
-    
-    this.laneMap.set(lane,avgObj);
+    this.laneMap.set(lane,this.getRunningAvgObj(avgObj,t - entryEvent.time));
     this.custMap.delete(id)
-
 }   
 
 getAverageTime(startStation: string, endStation: string): number {
-    return this.laneMap.get(`${startStation}-${endStation}`).avg
+    return this.laneMap.get(this.getLane(startStation,endStation)).avg
 }
 }
 
