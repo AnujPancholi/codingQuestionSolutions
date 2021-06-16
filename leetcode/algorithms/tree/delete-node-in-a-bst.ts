@@ -32,11 +32,9 @@ function deleteNode(root: TreeNode | null, key: number): TreeNode | null {
     } else if(root.val<key){
         root.right = deleteNode(root.right,key);
     } else {
-        if(root.left===null && root.right===null){
-            return null;
-        } else if(root.left && root.right===null){
+        if(root.right===null){
             return root.left;
-        } else if(root.right && root.left===null){
+        } else if(root.left===null){
             return root.right;
         } else {
             const minTreeNodeOfRightSubtree: TreeNode | null = getLeftMostTreeNode(root.right);
