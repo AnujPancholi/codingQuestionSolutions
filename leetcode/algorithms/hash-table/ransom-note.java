@@ -6,28 +6,25 @@
 
 class Solution {
     public boolean canConstruct(String ransomNote, String magazine) {
-        
         HashMap<Character,Integer> magMap = new HashMap<Character,Integer>();
         
-        for(int i=0;i<magazine.length();++i){
-            magMap.put(magazine.charAt(i),magMap.getOrDefault(magazine.charAt(i),0)+1);
+        for(int i = 0;i<magazine.length();++i){
+            char c = magazine.charAt(i);
+            magMap.put(c,magMap.getOrDefault(c,0)+1);
         }
         
-        // System.out.println(magMap);
-        
-        boolean canConstNote=true;
-        for(int i=0;i<ransomNote.length();++i){
-            int existingCount = magMap.getOrDefault(ransomNote.charAt(i),0);
-            
+        boolean isValidConstruction = true;
+        for(int i = 0;i<ransomNote.length();++i){
+            char c = ransomNote.charAt(i);
+            int existingCount = magMap.getOrDefault(c,0);
             if(existingCount==0){
-                canConstNote=false;
+                isValidConstruction = false;
                 break;
             }
-            
-            magMap.put(ransomNote.charAt(i),existingCount-1);
+            magMap.put(c,existingCount-1);
         }
         
-        return canConstNote;
+        return isValidConstruction;
         
     }
 }
