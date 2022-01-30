@@ -12,45 +12,30 @@ class Solution {
         }
         
         boolean hasPermutation = false;
-        int i = 0;
-        while(i<s2.length() && !hasPermutation){
-            
-            if(permutationMap.containsKey(s2.charAt(i))){
-                int currWindowChar = i;
-                HashMap<Character,Integer> currMap = (HashMap<Character,Integer>)permutationMap.clone();
-                int matchCount = 0;
-                hasPermutation = true;
-                while(i<s2.length() && matchCount<permLen){
-                    int currCount = currMap.getOrDefault(s2.charAt(i),0);
-                    if(currCount==0){
-                        if(permutationMap.containsKey(s2.charAt(i))){
-                            int updatedCount = currMap.getOrDefault(s2.charAt(currWindowChar),0) - 1;
-                            if(updatedCount<0){
-                                hasPermutation = false;
-                                break;
-                            }
-                            currMap.put(s2.charAt(currWindowChar),updatedCount);
-                            currMap.put(s2.charAt(i),currMap.getOrDefault(s2.charAt(i),0) + 1);
-                            currWindowChar++;
-                            ++i;
-                        } else {
-                            hasPermutation = false;
-                            break;
-                        }
-                    } else { 
-                        currMap.put(s2.charAt(i),currCount-1);
-                        ++matchCount;
-                        ++i;
-                    }
+        int i = 0,t=0,matchCount=0;
+        while(i<s2.length() && matchCount<permLen){
+            if(matchCount==0){
+                if(permutationMap.containsKey(s2.charAt(i))){
+                    int currCount = permutationMap.get(s2.charAt(i));
+                    permutationMap.put(s2.charAt(i),currCount - 1);
+                    matchCount++;
+                    t = i;
                 }
-                hasPermutation = matchCount==permLen;
-                i = currWindowChar +1;
-            } else {
                 ++i;
+            } else {
+                int currCount = permutationMap.getOrDefault(s2.charAt(i),0);
+                if(currCount>0){
+                    permutationMap.put(s2.charAt(i),currCount - 1);
+                    matchCount++;
+                    ++i;
+                } else {
+                    permutationMap.put(s2.charAt(t),permutationMap.get(s2.charAt(t)) + 1);
+                    --matchCount;
+                    ++t;
+                }
             }
-            
         }
         
-        return hasPermutation;
+        return matchCount==permLen;
     }
 }
