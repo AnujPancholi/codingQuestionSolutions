@@ -23,14 +23,14 @@ class Node {
 
 class Solution {
     
-    private List<List<Node>> bfsImpl(Node root) {
+    private void bfsImpl(Node root) {
         
         if(root==null){
-            return new ArrayList<List<Node>>();
+            return;
         }
         
         Queue<Pair<Node,Integer>> queue = new LinkedList<Pair<Node,Integer>>();
-        ArrayList<List<Node>> loList = new ArrayList<List<Node>>();
+        List<Node> loList = new ArrayList<Node>();
         
         queue.add(new Pair<Node,Integer>(root,0));
         root.next = null;
@@ -45,21 +45,22 @@ class Solution {
             if(curr.right!=null)queue.add(new Pair<Node,Integer>(curr.right,level+1));
             
             if(level==loList.size()){
-                loList.add(new ArrayList<Node>(Arrays.asList(curr)));
+                loList.add(curr);
+                curr.next = null;
             } else {
-                List<Node> levelList = loList.get(level);
-                levelList.get(levelList.size()-1).next = curr;
-                levelList.add(curr);
+                Node levelTail = loList.get(level);
+                levelTail.next = curr;
+                loList.set(level,curr);
                 curr.next = null;
             }
         }
         
-        return loList;
+       
     }
     
     public Node connect(Node root) {
         
-        List<List<Node>> bfsList = bfsImpl(root);
+        bfsImpl(root);
         
         
         
