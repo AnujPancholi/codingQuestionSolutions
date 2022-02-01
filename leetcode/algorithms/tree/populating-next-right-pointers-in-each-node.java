@@ -33,6 +33,7 @@ class Solution {
         ArrayList<List<Node>> loList = new ArrayList<List<Node>>();
         
         queue.add(new Pair<Node,Integer>(root,0));
+        root.next = null;
         
         while(!queue.isEmpty()){
             Pair<Node,Integer> currPair = queue.poll();
@@ -46,7 +47,10 @@ class Solution {
             if(level==loList.size()){
                 loList.add(new ArrayList<Node>(Arrays.asList(curr)));
             } else {
-                loList.get(level).add(curr);
+                List<Node> levelList = loList.get(level);
+                levelList.get(levelList.size()-1).next = curr;
+                levelList.add(curr);
+                curr.next = null;
             }
         }
         
@@ -57,14 +61,7 @@ class Solution {
         
         List<List<Node>> bfsList = bfsImpl(root);
         
-        // System.out.println(bfsList);
         
-        for(List<Node> levelList : bfsList){
-            for(int i = 0;i<levelList.size();++i){
-                // System.out.println(levelList.get(i).val);
-                levelList.get(i).next = (i==levelList.size()-1) ? null : levelList.get(i+1); 
-            }
-        }
         
         return root;
         
