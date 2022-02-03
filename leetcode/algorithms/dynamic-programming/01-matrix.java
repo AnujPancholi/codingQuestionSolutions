@@ -3,11 +3,6 @@ class Solution {
     
     public int[][] updateMatrix(int[][] mat) {
         this.visitMatrix = new boolean[mat.length][mat[0].length];
-        for(int i=0;i<mat.length;++i){
-            for(int j=0;j<mat[0].length;++j){
-                this.visitMatrix[i][j] = false;
-            }
-        }
         
         Queue<int[]> q = new LinkedList<int[]>();
         
