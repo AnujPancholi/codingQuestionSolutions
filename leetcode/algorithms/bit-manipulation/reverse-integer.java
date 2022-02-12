@@ -10,13 +10,13 @@ class Solution {
         }
         
         int i=0;
-        long reversedSum = 0;
+        int reversedSum = 0;
         while(!iStk.isEmpty()){
             reversedSum+=(iStk.pop()*Math.pow(10,i));
             ++i;
         }
         
-        return (int)(reversedSum>Integer.MAX_VALUE ? 0 : multiplier*(int)(reversedSum));
+        return (reversedSum==Integer.MAX_VALUE ? 0 : multiplier*(reversedSum));
         
     }
 }
