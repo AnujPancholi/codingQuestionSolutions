@@ -1,6 +1,6 @@
 class Solution {
     
-    private HashSet<String> sizeSet;
+    private HashSet<String> sigSet;
     
     private void addCombinations(int[] candidates,int target,int currIndex,List<Integer> currList, List<List<Integer>> combList){
         
@@ -13,9 +13,9 @@ class Solution {
         String sig = sigBuilder.toString();
         if(sum>target){
             return;
-        } else if(sum==target && !sizeSet.contains(sig)){
+        } else if(sum==target && !sigSet.contains(sig)){
             combList.add(currList);
-            sizeSet.add(sig);
+            sigSet.add(sig);
             return;
         }
         
@@ -29,7 +29,7 @@ class Solution {
     
     
     public List<List<Integer>> combinationSum(int[] candidates, int target) {
-        this.sizeSet = new HashSet<String>();
+        this.sigSet = new HashSet<String>();
         
         List<List<Integer>> combList = new ArrayList<List<Integer>>();
         
