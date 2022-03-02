@@ -1,5 +1,5 @@
 class Solution {
-    private long[] getSortedArrayCopy(int[] nums){
+    private int[] getSortedArrayCopy(int[] nums){
         HashSet<Integer> numSet = new HashSet<Integer>();
         List<Integer> numList = new ArrayList<Integer>();
         for(int n : nums){
@@ -8,21 +8,20 @@ class Solution {
                 numSet.add(n);
             }
         }
-        long[] sortedNums = new long[numList.size()];
+        int[] sortedNums = new int[numList.size()];
         for(int i = 0;i<numList.size();++i){
-            sortedNums[i] = (long)numList.get(i);
+            sortedNums[i] = numList.get(i);
         }
-        // int[] sortedNums = (Integer[])numList.toArray();
         Arrays.sort(sortedNums);
         return sortedNums;
     }
     
-    private void printArr(int[] nums){
-        for(int n : nums){
-            System.out.print(Integer.toString(n)+" ");
-        }
-        System.out.print("\n");
-    }
+    // private void printArr(int[] nums){
+    //     for(int n : nums){
+    //         System.out.print(Integer.toString(n)+" ");
+    //     }
+    //     System.out.print("\n");
+    // }
     
     private HashMap<Integer,List<Integer>> getNumIndexMap(int[] nums){
         HashMap<Integer,List<Integer>> numIndexMap = new HashMap<Integer,List<Integer>>();
@@ -54,16 +53,13 @@ class Solution {
         
         HashMap<Integer,List<Integer>> numIndexMap = getNumIndexMap(nums);
         
-        // System.out.println(numIndexMap);
+        int[] sortedNums = getSortedArrayCopy(nums);
         
-        long[] sortedNums = getSortedArrayCopy(nums);
-        
-        // printArr(sortedNums);
         int l=0,h=0;
         boolean containsNad = false;
         while(!containsNad && h<sortedNums.length){
-            if(sortedNums[h]-sortedNums[l]<=(long)t){
-                containsNad = isNumsClose(numIndexMap.get((int)sortedNums[l]),numIndexMap.get((int)sortedNums[h]),k);
+            if((long)sortedNums[h]-(long)sortedNums[l]<=(long)t){
+                containsNad = isNumsClose(numIndexMap.get(sortedNums[l]),numIndexMap.get(sortedNums[h]),k);
                 if(containsNad){
                     break;
                 }
