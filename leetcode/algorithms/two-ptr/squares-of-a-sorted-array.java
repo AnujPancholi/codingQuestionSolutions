@@ -1,14 +1,27 @@
 // import java.util.*;
 class Solution {
-    
+    private int getPosIndex(int[] nums){
+        int l = 0, h = nums.length -1,index = -1;
+        while(h>=l){
+            int m = l + ((h - l)/2);
+            if(nums[m]>=0){
+                if(m==0 || nums[m-1]<0){
+                    return m;
+                } else {
+                    h = m -1;
+                }
+            } else {
+                l = m + 1;
+            }
+        }
+        
+        return l<=0 ? 0 : nums.length;
+    }
      
     
     public int[] sortedSquares(int[] nums) {
         
-        int p = 0;
-        while(p<nums.length && nums[p]<0){
-            ++p;
-        }
+        int p = getPosIndex(nums);
         int n = p-1;
         
         int[] rArr = new int[nums.length];
